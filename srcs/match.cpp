@@ -15,7 +15,6 @@ void initCache() {
 
 bool match(int w, int f) {
     int &ret = cache[w][f];
-    initCache();
     if (ret != -1)
         return ret;
     if (w < wildCard.length() && f < filename.length() &&
@@ -38,6 +37,7 @@ bool match(int w, int f) {
 void printMatchingFiles(vector<string> &files, const string &pattern) {
     wildCard = pattern;
     for (int i = 0; i < files.size(); i++) {
+        initCache();
         filename = files[i];
         if (match(0, 0)) {
             cout << filename << "\n";
@@ -48,6 +48,7 @@ void printMatchingFiles(vector<string> &files, const string &pattern) {
 void removeMatchingFiles(vector<string> &files, const string &pattern) {
     wildCard = pattern;
     for (int i = 0; i < files.size(); i++) {
+        initCache();
         filename = files[i];
         if (match(0, 0)) {
             files.erase(files.begin() + i);
